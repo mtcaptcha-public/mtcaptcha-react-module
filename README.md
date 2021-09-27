@@ -17,16 +17,16 @@ The default usage imports a wrapped component that loads the mtcaptcha script as
 
 Code Example:
 ```jsx
-import ReCAPTCHA from "react-google-recaptcha";
+import MTCaptcha from "react-mtcaptcha";
 
-function onChange(value) {
+function onVerified(value) {
   console.log("Captcha value:", value);
 }
 
 ReactDOM.render(
-  <ReCAPTCHA
+  <MTCaptcha
     sitekey="Your client site key"
-    onChange={onChange}
+    onVerified={onVerified}
   />,
   document.body
 );
@@ -39,10 +39,10 @@ Properties used to customise the rendering:
 | Name | Type | Description |
 |:---- | ---- | ------ |
 | sitekey | string | The API client key |
-| onChange | func | The function to be called when the user successfully completes the captcha |
+| onVerified | func | The function to be called when the user successfully completes the captcha |
 | theme | enum | *optional*  The theme of the widget *(__defaults:__ `basic`)*. See [example][docs_theme]
 | type | enum | *optional* `standard` or `imageonly` The type of initial captcha *(__defaults:__ `image`)*
-| onExpired | func | *optional* callback when the challenge is expired and has to be redone by user. By default it will call the onChange with null to signify expired callback. |
+| onExpired | func | *optional* callback when the challenge is expired and has to be redone by user. By default it will call the onVerified with null to signify expired callback. |
 | onErrored | func | *optional* callback when the challenge errored, most likely due to network issues. |
 | lang | string | *optional* set the lang parameter, which allows the captcha to be used from different languages, see [lang] |
 | widgetSize | enum | *optional* `standard`or `modern mini`. This allows you to change the size or do an invisible captcha |

@@ -2,17 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default class MTCaptcha extends React.Component {
-  componentDidMount() {
-    // window.mtcaptchaConfig = { "sitekey": "MTPublic-J46lvEOJn" };
-  }
 
   constructor() {
     super();
-    // window.mtcaptchaConfig = { "sitekey": "MTPublic-J46lvEOJn" };
     this.handleExpired = this.handleExpired.bind(this);
     this.handleErrored = this.handleErrored.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    // this.handleVerified=this.handleVerified.bind(this);
+    this.handleVerified = this.handleVerified.bind(this);
     this.handleRecaptchaRef = this.handleRecaptchaRef.bind(this);
   }
 
@@ -58,7 +53,7 @@ export default class MTCaptcha extends React.Component {
     if (this.props.onExpired) {
       this.props.onExpired();
     } else {
-      this.handleChange(null);
+      this.handleVerified(null);
     }
   }
 
@@ -73,9 +68,9 @@ export default class MTCaptcha extends React.Component {
     }
   }
 
-  handleChange(token) {
-    if (this.props.onChange) {
-      this.props.onChange(token);
+  handleVerified(token) {
+    if (this.props.onVerified) {
+      this.props.onVerified(token);
     }
     if (this.executionResolve) {
       this.executionResolve(token);
@@ -87,15 +82,15 @@ export default class MTCaptcha extends React.Component {
   explicitRender() {
     if (this.props.mtcaptcha && this.props.mtcaptcha.renderUI && this._widgetId === undefined) {
       const wrapper = document.createElement("div");
-      wrapper.id=this.props.sitekey;
+      wrapper.id = this.props.sitekey;
       this._widgetId = this.props.mtcaptcha.renderUI(wrapper.id, {
         sitekey: this.props.sitekey,
-        domId:this.props.id,
-        theme:this.props.theme,
-        widgetSize:this.props.widgetSize,
+        domId: this.props.id,
+        theme: this.props.theme,
+        widgetSize: this.props.widgetSize,
         lang: this.props.language,
         type: this.props.type,
-        "verified-callback":this.handleChange,
+        "verified-callback": this.handleVerified,
         "verifyexpired-callback": this.handleExpired,
         "error-callback": this.handleErrored,
       });
@@ -147,7 +142,7 @@ export default class MTCaptcha extends React.Component {
     /* eslint-disable no-unused-vars */
     const {
       sitekey,
-      onChange,
+      onVerified,
       theme,
       type,
       onExpired,
@@ -165,7 +160,7 @@ export default class MTCaptcha extends React.Component {
 MTCaptcha.displayName = "MTCaptcha";
 MTCaptcha.propTypes = {
   sitekey: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
+  onVerified: PropTypes.func,
   mtcaptcha: PropTypes.object,
   theme: PropTypes.string,
   type: PropTypes.oneOf(["standard", "imageonly"]),
@@ -175,5 +170,5 @@ MTCaptcha.propTypes = {
   language: PropTypes.string,
 };
 MTCaptcha.defaultProps = {
-  onChange: () => { },
+  onVerified: () => { },
 };
