@@ -2,6 +2,12 @@
   "name": "react-mtcaptcha",
   "version": "0.1.0",
   "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-react": "^7.14.5",
