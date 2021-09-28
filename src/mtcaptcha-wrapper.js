@@ -5,7 +5,7 @@ const callbackName = "onloadcallback";
 const globalName = "mtcaptcha";
 
 function getOptions() {
-    return (typeof window !== "undefined" && window.mtcaptchaconfiguration) || {};
+    return (typeof window !== "undefined" && window.mtcaptchaConfig) || {};
 }
 
 function getURL() {
